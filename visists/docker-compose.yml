@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+  node-app:
+    restart: always  # other restart policies: "no", on-failure, unless-stopped
+    build: .
+    ports:
+      - "4001:8081"
+
+## CLI commands - need to run them from directory with the yml file
+# docker compose up
+# docker compose up --build
+# docker compose down
+# docker compose ps
