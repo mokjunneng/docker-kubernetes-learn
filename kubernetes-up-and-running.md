@@ -478,3 +478,25 @@ Serving TLS
 - Once uploaded the cert, reference it in an Ingress object
   - Specifies a list of certs along with the hostnames that those certs should be used for (see `./kubernetes/tls-ingress.yaml`)
   - If multiple Ingress objects specify certs for the same hostname -> behavior is undefined
+
+## ReplicaSets
+
+Why multiple replicas of a container?
+- Redundancy - tolerate failures
+- Scale - handle more requests
+- Sharding - handle diff parts of a computation in parallel
+
+Cluster-wide Pod manager
+- ensure right types and number of Pods and running at all times
+- Provide self-healing for application at infra level
+  - Pods managed are automatically rescheduled under certain failure conditions
+
+### Reconciliation Loops
+- Central concept is the notion of desired state versus observed or current state
+- The reconciliation loop is constantly running, observing the current state and taking action to try the make the observed state match the desired state
+
+### Relating Pods and ReplicaSets
+- ReplicaSets create and manage Pods but do not own them
+- Use label queries to identify the set of Pods they should be managing
+- Decoupling of Pods and ReplicaSets enables several behaviors
+  - Adopting existing containers
